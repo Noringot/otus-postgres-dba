@@ -4,22 +4,29 @@
 - В этом уроке познакомимся с уровнями изоляции РСУБД для осуществления согласованности данных. Будет расмотрено два уровня изоляции: Read Commited и Repeatable Read
 
 1. Создаем таблицу  
-create table persons(  
+<pre><code>create table persons(  
     id serial,  
     first_name text,   
     second_name text  
 );
+</code></pre>
 
 2. Заполняем данными  
-insert into persons(first_name, second_name)  
-values('ivan', 'ivanov'),  
-values('petr', 'petrov');  
+<pre><code>insert into persons(first_name, second_name)  
+    values('ivan', 'ivanov'),  
+    values('petr', 'petrov');  
 commit;
+</code></pre>
 
-| id | first_name  | second_name |
-| -- | -------- |------------|
-| 1 | ivan      | ivanov     |
-| 2 | petr      | petrov     |
+Получилась таблица **persons**
+<pre><code>=> select * from persons;
+
+id | first_name | second_name
+----+------------+-------------
+  1 | ivan       | ivanov
+  2 | petr       | petrov
+(2 rows)
+</code></pre>
 
 ### Уровни изоляции. Read Commited
 В первой транзакции вставляем новую запись
@@ -92,3 +99,4 @@ select * from persons;
 </code></pre>
 
 Как итог, влияние параллельно выполняющихся транзакций друг на друга различно, при различных уровнях изоляции.
+
